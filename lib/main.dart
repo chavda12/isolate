@@ -77,8 +77,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: ()  {
-          //  runWithoutIsolate();
-          runwithIsolate();
           _incrementCounter();
         },
         tooltip: 'Increment',

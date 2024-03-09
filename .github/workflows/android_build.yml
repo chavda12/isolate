@@ -16,18 +16,27 @@ jobs:
     name: Build & Release
     runs-on: macos-latest
     steps:
-      - uses: action/checkout@v4
-      - uses: action/setup-java@v4
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Java
+        uses: actions/setup-java@v2
         with:
-          java-version: '12.x'
+          distribution: 'adopt'
+          java-version: '11'
+  
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.16.9'
           channel: 'stable'
-      - run: |
-          flutter pub get
-          flutter test
-          fluter build apk
+      - name: gettting deps
+        run: flutter pub get
+          
+      - name: running test
+        run: flutter test
+          
+      - name: building apk
+        run: flutter build apk
       
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
