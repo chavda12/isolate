@@ -36,12 +36,21 @@ jobs:
           
       - name: running test
         run: flutter test
+
+      
+      - name: Create the Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          # import keystore from secrets
+          echo $KEYSTORE_BASE64 | base64 -d > $RUNNER_TEMP/my_production.keystore
+ 
           
       - name: Build APK
         run: |
           flutter build apk
           # Use keystore for signing
-          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore `KEYSTORE_FILE` -storepass `KEYSTORE_PASSWORD` -keypass `KEY_PASSWORD` -signedjar app-release.apk build/app/outputs/flutter-apk/app-release.apk `KEY_ALIAS`
+          jarsigner -keystore /my/cert/file -storepass password /my/jar/file my_alias
 
         if: startsWith(github.ref, 'refs/heads/release/')
       - name: Build App Bundle
