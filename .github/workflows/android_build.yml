@@ -41,7 +41,7 @@ jobs:
         run: |
           flutter build apk
           # Use keystore for signing
-          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${{ secrets.KEYSTORE_FILE }} -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEY_PASSWORD }} -signedjar app-release.apk build/app/outputs/flutter-apk/app-release.apk ${{ secrets.KEY_ALIAS }}
+          jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ${{ KEYSTORE_FILE }} -storepass ${{ KEYSTORE_PASSWORD }} -keypass ${{ KEY_PASSWORD }} -signedjar app-release.apk build/app/outputs/flutter-apk/app-release.apk ${{ KEY_ALIAS }}
 
         if: startsWith(github.ref, 'refs/heads/release/')
       - name: Build App Bundle
